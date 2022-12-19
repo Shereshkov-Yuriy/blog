@@ -11,7 +11,9 @@
 - Linux Ubuntu 20.04.5 LTS
 - Python > 3.7
 	- isort, black, autoflake
-	- Flask v1.1.x
+	- Flask 2.2.2
+	- Werkzeug 2.2.2
+	- Jinja2 3.1.2
 - VSCode
 
 ## Лицензия
