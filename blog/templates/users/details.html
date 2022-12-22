@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}User #{{ user_id }}{% endblock  %}
+{% block title %}User #{{ user_id }}{% endblock title %}
 
-{% block body %}
-<a href="{{ url_for("index.index_page") }}">Home</a>
-<a href="{{ url_for("user.user_list") }}">User List</a>
+{% block content %}
 <h1>User #{{ user_id }}</h1>
-{{ user_name }}
-{% endblock  %}
+<p>{{ user_name }}</p>
+{% endblock content %}

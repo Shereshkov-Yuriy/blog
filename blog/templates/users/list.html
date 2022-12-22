@@ -2,13 +2,12 @@
 
 {% block title %}User List{% endblock  %}
 
-{% block body %}
+{% block content %}
 <h1>User List</h1>
-<a href="{{ url_for("index.index_page") }}">Home</a>
 <ul>
     {% for user_id in users %}
       <li><a href="{{ url_for("user.get_user", pk=user_id) }}">
         {{ users[user_id] }}</a></li>
     {% endfor %}
 </ul>
-{% endblock  %}
+{% endblock content %}
