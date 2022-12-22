@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Article #{{ article_id }}{% endblock title %}
+
+{% block content %}
+<div>
+  <h1 class="display-1">User #{{ article_id }}</h1>
+  <p>{{ article_data }}</p>
+  <p>{{ lipsum(1) }}</p>
+</div>
+{% endblock content %}

@@ -12,11 +12,8 @@
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="container" id="header">
-        {% block header %}
-        {% include "navbar.html" %}
-        {% endblock header %}
-    </div>
+
+    {% include "includes/navbar.html" %}
 
     <div class="container" id="content">
         {% block content %}
@@ -24,11 +21,7 @@
         {% endblock content %}
     </div>
 
-    <div class="container" id="footer">
-        {% block footer %}
-        
-        {% endblock footer %}
-    </div>
+    {% include "includes/footer.html" %}
 
     <!-- Optional JavaScript; choose one of the two! -->
 
