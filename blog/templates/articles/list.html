@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Article List{% endblock  %}
+
+{% block content %}
+<h1 class="display-1">Article List</h1>
+
+<div class="row justify-content-md-center">
+
+{% for id, article in articles.items() %}
+<div class="card col-sm" style="width: 18rem;" id="{{ id }}">
+  <div class="card-body">
+    <h5 class="card-title">Article #{{ id }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <a href="{{ url_for('article.get_article', pk=id) }}">
+        {{ article.title }}</a></h6>
+    <p class="card-text">{{ article.text }}</p>
+    <p class="card-text">{{ lipsum(n=1, min=12, max=16) }}</p>
+    <a href="{{ url_for('user.get_user', pk=article.author) }}" class="card-link">Author {{ article.author }}</a>
+  </div>
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock content %}
