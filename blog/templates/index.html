@@ -3,5 +3,10 @@
 {% block title %}Welcom to my Blog{% endblock title %}
 
 {% block content %}
-<h1>Oh, my Blog!</h1>
+<h1 class="display-4">Oh, my Blog! welcomes you, O great
+  {% if current_user.is_authenticated %}
+    {{ current_user.username.capitalize() }}
+  {% else %}
+    Anonymous
+  {% endif %}!</h1>
 {% endblock content %}

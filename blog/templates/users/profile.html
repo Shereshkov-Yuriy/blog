@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}User #{{ user.id }}{% endblock title %}
+
+{% block content %}
+<div>
+  <h1 class="display-4">User #{{ user.id }}</h1>
+  <p>{{ user.username }}</p>
+  {% if user.is_staff %}
+    <span class="badge bg-secondary">staff</span>
+  {% endif %}
+</div>
+{% endblock content %}

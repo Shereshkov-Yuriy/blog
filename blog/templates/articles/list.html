@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Article List{% endblock  %}
+{% block title %}Article List{% endblock title %}
 
 {% block content %}
-<h1 class="display-1">Article List</h1>
+<h1 class="display-4">Article List</h1>
 
 <div class="row justify-content-md-center">
 
@@ -16,7 +16,7 @@
         {{ article.title }}</a></h6>
     <p class="card-text">{{ article.text }}</p>
     <p class="card-text">{{ lipsum(n=1, min=12, max=16) }}</p>
-    <a href="{{ url_for('user.get_user', pk=article.author) }}" class="card-link">Author {{ article.author }}</a>
+    <a href="{{ url_for('user.profile', pk=article.author) }}" class="card-link">Author {{ article.author }}</a>
   </div>
 </div>
 {% endfor %}
