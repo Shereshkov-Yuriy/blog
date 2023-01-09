@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template
+from flask_login import login_required
 from werkzeug.exceptions import NotFound
 
-from blog.articles import constants as ARTICLES
+from blog.articles.constants import ARTICLES
 
 article = Blueprint(
     "article",
@@ -15,14 +16,15 @@ article = Blueprint(
 def article_list():
     return render_template(
         "articles/list.html",
-        articles=ARTICLES.ARTICLES,
+        articles=ARTICLES,
     )
 
 
 @article.route("/<int:pk>")
+@login_required
 def get_article(pk: int):
     try:
-        article_data = ARTICLES.ARTICLES[pk]
+        article_data = ARTICLES[pk]
     except KeyError:
         raise NotFound(f"Articles id {pk} not found.")
     return render_template(
