@@ -1,13 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %}User #{{ user.id }}{% endblock title %}
+{% block title %}User profile{% endblock title %}
 
 {% block content %}
+
 <div>
   <h1 class="display-4">User #{{ user.id }}</h1>
-  <p>{{ user.username }}</p>
+  <p>{{ user.username|capitalize }}</p>
   {% if user.is_staff %}
     <span class="badge bg-secondary">staff</span>
   {% endif %}
 </div>
+
+<div class="row justify-content-md-start">
+  <h1 class="display-6">User articles</h1>
+  {% for article in user.author.articles %}
+    <div class="card col-6" style="width: 18rem;" id="{{ article.id }}">
+      <div class="card-body">
+        <h5 class="card-title">Article #{{ article.id }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          <a href="{{ url_for('article.article_details', pk=article.id) }}">
+            {{ article.title|capitalize }}</a></h6>
+        <p class="card-text">{{ article.body }}</p>
+        <div>Published {{ article.created_at }}</div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
 {% endblock content %}
