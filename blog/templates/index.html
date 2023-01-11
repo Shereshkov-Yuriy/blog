@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Welcom to my Blog{% endblock title %}
+{% block title %}Welcom to Oh, my Blog!{% endblock title %}
 
 {% block content %}
 <h1 class="display-4">Oh, my Blog! welcomes you, O great
   {% if current_user.is_authenticated %}
-    {{ current_user.username.capitalize() }}
+    {{ current_user.username|capitalize }}
   {% else %}
     Anonymous
   {% endif %}!</h1>
