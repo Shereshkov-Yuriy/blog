@@ -1,16 +1,35 @@
 {
-    "python.defaultInterpreterPath": "/home/chertonsky/flask/venv/bin/python3",
+  "python.defaultInterpreterPath": "/home/chertonsky/flask/venv/bin/python3",
+  "editor.tabSize": 2,
+  "editor.rulers": [
+    120,
+  ],
+  // "editor.detectIndentation": false,
+  "[python]": {
     "editor.tabSize": 4,
-    // "editor.detectIndentation": false,
-    "[javascript]": {
-      "editor.tabSize": 2
-    },
-    "[json]": {
-      "editor.tabSize": 2
-    },
-    "[html]": {
-      "editor.tabSize": 2
-    },
-    // This one forces the tab to be **space**
-    "editor.insertSpaces": true
+    "editor.rulers": [
+      120,
+    ]
+  },
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.rulers": [
+      80,
+    ],
+  },
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.rulers": [
+      80,
+    ],
+  },
+  "[html]": {
+    "editor.tabSize": 2,
+    "editor.rulers": [
+      80,
+    ],
+  },
+  // This one forces the tab to be **space**
+  "editor.insertSpaces": true,
+  "editor.wordWrapColumn": 120
 }

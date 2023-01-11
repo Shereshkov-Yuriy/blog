@@ -3,11 +3,11 @@
 {% block title %}User List{% endblock  %}
 
 {% block content %}
-<h1 class="display-4">User List</h1>
+<h1 class="display-4">Users</h1>
 <ul>
     {% for user in users %}
       <li><a href="{{ url_for('user.profile', pk=user.id) }}">
-        {{ user.username }} {{ user.email }}</a>
+        {{ user.username }}: {{ user.email }}</a>
         {% if user.is_staff %}
           <span class="badge bg-secondary">staff</span>
         {% endif %}
