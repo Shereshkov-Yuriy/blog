@@ -7,13 +7,24 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link {% if request.endpoint == 'index.index_page' %}active{% endif %}" aria-current="page" 
-          href="{{ url_for('index.index_page') }}">Home</a>
-        <a class="nav-link {% if request.endpoint == 'user.user_list' %}active{% endif %}" 
-          href="{{ url_for('user.user_list') }}">Users</a>
-        <a class="nav-link {% if request.endpoint == 'article.article_list' %}active{% endif %}" 
-          href="{{ url_for('article.article_list') }}">Articles</a>
+        {% for (endpoint, label) in [
+                                    ("index.index_page", "Home"), 
+                                    ("user.user_list", "Users"), 
+                                    ("author.author_list", "Authors"), 
+                                    ("article.article_list", "Articles"),
+                                    ("tag.tag_list", "Tags"),
+                                    ] %}
+          <a class="nav-link {% if request.endpoint == endpoint %}active{% endif %}" aria-current="page" 
+            href="{{ url_for(endpoint) }}">{{ label }}</a>
+        {% endfor %}
+        {% if current_user.is_anonymous %}
+          <a class="nav-link" aria-current="page" 
+            href="{{ url_for('user.register') }}">Registration</a>
+        {% endif %}
         {% if current_user.is_authenticated %}
+          <a class="nav-link" aria-current="page" 
+            href="{{ url_for('article.create_article_form') }}">
+            Create article</a>
           <a class="nav-link" aria-current="page" 
             href="{{ url_for('auth.logout') }}">Logout</a>
         {% else %}
@@ -24,7 +35,7 @@
     </div>
     {% if current_user.is_authenticated %}
       <span class="navbar-text">
-        Hi, {{ current_user.username.capitalize() }}
+        Hi, {{ current_user.username|capitalize }}
       </span>
     {% endif %}
   </div>
