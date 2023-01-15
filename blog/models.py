@@ -7,10 +7,11 @@ class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
+    first_name = db.Column(db.String(64))
+    last_name = db.Column(db.String(64))
     username = db.Column(db.String(64), unique=True, nullable=False)
-    email = db.Column(db.String(255), unique=True)
-    password = db.Column(db.String(255))
+    email = db.Column(db.String(128), unique=True)
+    password = db.Column(db.String(128))
     is_staff = db.Column(db.Boolean, default=False)
 
     def __init__(self, username, email, password, is_staff):
