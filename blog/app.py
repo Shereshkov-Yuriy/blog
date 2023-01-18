@@ -36,10 +36,12 @@ def register_blueprints(app: Flask):
     from blog import views as index
     from blog.articles import views as article
     from blog.auth import views as auth
+    from blog.authors import views as author
     from blog.users import views as user
 
     app.register_blueprint(index.index)
     app.register_blueprint(auth.auth)
+    app.register_blueprint(author.author)
     app.register_blueprint(user.user)
     app.register_blueprint(article.article)
 
