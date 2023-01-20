@@ -43,8 +43,6 @@ def register():
 @user.route("/")
 @login_required
 def user_list():
-    from blog.models import User
-
     users = User.query.all()
     return render_template(
         "users/list.html",
@@ -55,8 +53,6 @@ def user_list():
 @user.route("/<int:pk>")
 @login_required
 def profile(pk: int):
-    from blog.models import User
-
     user = User.query.filter_by(id=pk).one_or_none()
     if user is None:
         raise NotFound(f"User #{pk} doesn't exist!")

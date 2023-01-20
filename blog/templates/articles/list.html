@@ -3,24 +3,25 @@
 {% block title %}Article List{% endblock title %}
 
 {% block content %}
-<h1 class="display-4">Article List</h1>
 
-<div class="row justify-content-md-center">
+<h1 class="display-4">Articles</h1>
 
-{% for id, article in articles.items() %}
-<div class="card col-sm" style="width: 18rem;" id="{{ id }}">
-  <div class="card-body">
-    <h5 class="card-title">Article #{{ id }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">
-      <a href="{{ url_for('article.get_article', pk=id) }}">
-        {{ article.title }}</a></h6>
-    <p class="card-text">{{ article.text }}</p>
-    <p class="card-text">{{ lipsum(n=1, min=12, max=16) }}</p>
-    <a href="{{ url_for('user.profile', pk=article.author) }}" class="card-link">Author {{ article.author }}</a>
-  </div>
-</div>
-{% endfor %}
-
+<div class="row justify-content-md-start">
+  {% for article in articles %}
+    <div class="card col-6" style="width: 18rem;" id="{{ article.id }}">
+      <div class="card-body">
+        <h5 class="card-title">Article #{{ article.id }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          <a href="{{ url_for('article.article_details', pk=article.id) }}">
+            {{ article.title|capitalize }}</a></h6>
+        <p class="card-text">{{ article.body }}</p>
+        <div>Published {{ article.created_at }}</div>
+        <div>Author 
+          <a href="{{ url_for('user.profile', pk=article.author.user.id) }}" class="card-link">{{ article.author.user.username }}</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
 </div>
 
 {% endblock content %}

@@ -1,6 +1,8 @@
 {% macro render_field(field) %}
   <div class="mb-3 row">
-    {{ field.label(class="col-sm-2 col-form-label form-label") }}
+    {% if field.label %}
+      {{ field.label(class="col-sm-2 col-form-label form-label") }}
+    {% endif %}
     <div class="col-sm-4">
       {{ field(class="form-control" + (" is-invalid" if field.errors else ""))|safe }}
       {% if field.errors %}

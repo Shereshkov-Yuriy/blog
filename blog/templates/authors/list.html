@@ -10,7 +10,12 @@
         {% for author in authors %}
           <li>
             <a href="{{ url_for('user.profile', pk=author.user.id) }}">
-              #{{ author.id }} {{ author.user.first_name }} {{ author.user.last_name }}
+              #{{ author.id }}
+              {% if author.user.first_name is none %}
+                {{ author.user.username }}
+              {% else %}
+                {{ author.user.first_name }} {{ author.user.last_name }}
+              {% endif %}
             </a>
           </li>
         {% endfor %}
