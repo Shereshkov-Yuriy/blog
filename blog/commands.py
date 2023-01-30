@@ -14,7 +14,14 @@ def create_admin():
     """
     from blog.models import User
 
-    admin = User(username="admin", email="admin@ru.ru", password=generate_password_hash("admin"), is_staff=True)
+    admin = User(
+        first_name="admin",
+        last_name="admin",
+        username="admin",
+        email="admin@ru.ru",
+        password=generate_password_hash("admin"),
+        is_staff=True,
+        )
     db.session.add(admin)
     db.session.commit()
     click.echo(f"Done! Created admin: {admin}")
