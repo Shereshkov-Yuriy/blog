@@ -1,4 +1,6 @@
+from combojsonapi.spec import ApiSpecPlugin
 from flask import Flask, redirect, url_for
+from flask_combo_jsonapi import Api
 
 from blog import commands
 from blog.extensions import admin, csrf, db, login_manager, migrate
@@ -12,6 +14,7 @@ def create_app() -> Flask:
     register_extensions(app)
     register_blueprints(app)
     register_commands(app)
+    register_api(app)
     return app
 
 
@@ -31,6 +34,41 @@ def register_extensions(app):
     @login_manager.unauthorized_handler
     def unauthorized():
         return redirect(url_for("auth.login"))
+
+
+def register_api(app: Flask):
+    from blog.api.article import ArticleDetail, ArticleList
+    from blog.api.author import AuthorDetail, AuthorList
+    from blog.api.tag import TagDetail, TagList
+    from blog.api.user import UserDetail, UserList
+
+    api_spec_plugin = ApiSpecPlugin(
+        app=app,
+        tags={
+            "Article": "Article API",
+            "Author": "Author API",
+            "Tag": "Tag API",
+            "User": "User API",
+        }
+    )
+
+    api = Api(
+        app,
+        plugins=[
+            api_spec_plugin,
+        ]
+    )
+
+    api.route(ArticleList, "article_list", "/api/articles/", tag="Article")
+    api.route(ArticleDetail, "article_detail",
+              "/api/articles/<int:id>/", tag="Article")
+    api.route(AuthorList, "author_list", "/api/authors/", tag="Author")
+    api.route(AuthorDetail, "author_detail",
+              "/api/authors/<int:id>/", tag="Author")
+    api.route(TagList, "tag_list", "/api/tags/", tag="Tag")
+    api.route(TagDetail, "tag_detail", "/api/tags/<int:id>/", tag="Tag")
+    api.route(UserList, "user_list", "/api/users/", tag="User")
+    api.route(UserDetail, "user_detail", "/api/users/<int:id>/", tag="User")
 
 
 def register_blueprints(app: Flask):

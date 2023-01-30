@@ -27,12 +27,13 @@ class User(db.Model, UserMixin):
 
     author = relationship("Author", uselist=False, back_populates="user")
 
-    def __init__(self, first_name, last_name, username, email, password):
+    def __init__(self, first_name, last_name, username, email, password, is_staff=False):
         self.first_name = first_name
         self.last_name = last_name
         self.username = username
         self.email = email
         self.password = password
+        self.is_staff = is_staff
 
     def __repr__(self):
         return f"<User {self.id!r}:{self.username!r}>"
