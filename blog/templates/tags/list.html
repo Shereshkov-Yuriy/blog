@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Tag List{% endblock title %}
+
+{% block content %}
+
+<h1 class="display-4">Tags</h1>
+
+<div class="row justify-content-md-start">
+  {% for tag in tags %}
+    <div class="card col-sm" style="width: 18rem;" id="{{ tag.id }}">
+      <div class="card-body">
+        <h5 class="card-title">Tag #{{ tag.id }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          <a href="{{ url_for('tag.tag_details', pk=tag.id) }}">
+            {{ tag.name|capitalize }}</a></h6>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

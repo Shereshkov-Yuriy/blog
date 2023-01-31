@@ -1,8 +1,11 @@
-from flask import Blueprint, render_template
-from flask_login import login_required
+from flask import Blueprint, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
+from sqlalchemy.orm import joinedload
 from werkzeug.exceptions import NotFound
 
-from blog.articles.constants import ARTICLES
+from blog.extensions import db
+from blog.forms.article import CreateArticleForm
+from blog.models import Article, Author, Tag
 
 article = Blueprint(
     "article",
@@ -12,23 +15,60 @@ article = Blueprint(
 )
 
 
-@article.route("/")
+@article.route("/", methods=["GET"])
 def article_list():
+    articles = Article.query.all()
     return render_template(
         "articles/list.html",
-        articles=ARTICLES,
+        articles=articles,
     )
 
 
 @article.route("/<int:pk>")
 @login_required
-def get_article(pk: int):
-    try:
-        article_data = ARTICLES[pk]
-    except KeyError:
-        raise NotFound(f"Articles id {pk} not found.")
+def article_details(pk: int):
+    _article = Article.query.filter_by(id=pk).options(joinedload(Article.tags)).one_or_none()
+    if _article is None:
+        raise NotFound
     return render_template(
         "articles/details.html",
-        article_id=pk,
-        article_data=article_data,
+        article=_article,
     )
+
+
+@article.route("/create", methods=["GET"])
+@login_required
+def create_article_form():
+    form = CreateArticleForm(request.form)
+    form.tags.choices = [(tag.id, tag.name) for tag in Tag.query.order_by("name")]
+    return render_template("articles/create.html", form=form)
+
+
+@article.route("/", methods=["POST"])
+@login_required
+def create_article():
+    form = CreateArticleForm(request.form)
+    form.tags.choices = [(tag.id, tag.name) for tag in Tag.query.order_by("name")]
+    if form.validate_on_submit():
+        _article = Article(title=form.title.data.strip(), body=form.body.data)
+        db.session.add(_article)
+
+        if current_user.author:
+            _article.author = current_user.author
+        else:
+            author = Author(user_id=current_user.id)
+            db.session.add(author)
+            db.session.flush()
+            _article.author_id = author.id
+
+        if form.tags.data:
+            selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data))
+            for tag in selected_tags:
+                _article.tags.append(tag)
+
+        db.session.add(_article)
+        db.session.commit()
+
+        return redirect(url_for(".article_details", pk=_article.id))
+
+    return render_template("articles/create.html", form=form)
