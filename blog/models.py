@@ -6,6 +6,13 @@ from sqlalchemy.orm import relationship
 
 from blog.app import db
 
+article_tag_association_table = db.Table(
+    "article_tag_association",
+    db.metadata,
+    db.Column("article_id", db.Integer, ForeignKey("articles.id"), nullable=False),
+    db.Column("tag_id", db.Integer, ForeignKey("tags.id"), nullable=False),
+)
+
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"
@@ -52,3 +59,13 @@ class Article(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     author = relationship("Author", back_populates="articles")
+    tags = relationship("Tag", secondary=article_tag_association_table, back_populates="articles")
+
+
+class Tag(db.Model):
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+
+    articles = relationship("Article", secondary=article_tag_association_table, back_populates="tags")

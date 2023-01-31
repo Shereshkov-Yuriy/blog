@@ -10,7 +10,21 @@
   <div>
     <p>{{ article.body }}</p>
   </div>
-  <div>Published {{ article.created_at }}</div>
-  <div>Author <a href="{{ url_for('user.profile', pk=article.author.user_id) }}">{{ article.author.user.username }} ({{ article.author.id }})</a></div>
+  <div class="row">
+    <div class="col-6">
+      <div>Published {{ article.created_at.strftime("%d.%m.%Y %H:%M") }}</div>
+      <div>Author 
+        <a href="{{ url_for('user.profile', pk=article.author.user_id) }}">
+          {{ article.author.user.username }} ({{ article.author.id }})</a>
+      </div>
+    </div>
+    <div class="col-6">
+      {% for tag in article.tags %}
+        <a href="{{ url_for('tag.tag_details', pk=tag.id) }}" 
+          class="btn badge bg-primary">{{ tag.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
 </div>
 {% endblock content %}

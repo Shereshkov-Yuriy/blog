@@ -5,6 +5,12 @@
     120,
   ],
   // "editor.detectIndentation": false,
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.rulers": [
+      120,
+    ]
+  },
   "[javascript]": {
     "editor.tabSize": 2,
     "editor.rulers": [
@@ -24,5 +30,6 @@
     ],
   },
   // This one forces the tab to be **space**
-  "editor.insertSpaces": true
+  "editor.insertSpaces": true,
+  "editor.wordWrapColumn": 120
 }

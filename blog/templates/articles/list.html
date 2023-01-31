@@ -15,7 +15,8 @@
           <a href="{{ url_for('article.article_details', pk=article.id) }}">
             {{ article.title|capitalize }}</a></h6>
         <p class="card-text">{{ article.body }}</p>
-        <div>Published {{ article.created_at }}</div>
+        <div>Published {{ article.created_at.strftime("%d.%m.%Y %H:%M") }}</div>
+
         <div>Author 
           <a href="{{ url_for('user.profile', pk=article.author.user.id) }}" class="card-link">{{ article.author.user.username }}</a>
         </div>

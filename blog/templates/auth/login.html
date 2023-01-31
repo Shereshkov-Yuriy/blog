@@ -23,7 +23,7 @@
   {% for field in ["email", "password"] %}
     {{ render_field(form[field]) }}
   {% endfor %}
-
+  
   {{ form.submit(class="btn", style="background-color: #ffdb58;") }}
 
 </form>

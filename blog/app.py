@@ -37,6 +37,7 @@ def register_blueprints(app: Flask):
     from blog.articles import views as article
     from blog.auth import views as auth
     from blog.authors import views as author
+    from blog.tags import views as tag
     from blog.users import views as user
 
     app.register_blueprint(index.index)
@@ -44,7 +45,9 @@ def register_blueprints(app: Flask):
     app.register_blueprint(author.author)
     app.register_blueprint(user.user)
     app.register_blueprint(article.article)
+    app.register_blueprint(tag.tag)
 
 
 def register_commands(app: Flask):
     app.cli.add_command(commands.create_admin)
+    app.cli.add_command(commands.create_tags)
