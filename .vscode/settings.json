@@ -1,6 +1,6 @@
 {
   "python.defaultInterpreterPath": "/home/chertonsky/flask/venv/bin/python3",
-  "editor.tabSize": 4,
+  "editor.tabSize": 2,
   "editor.rulers": [
     120,
   ],

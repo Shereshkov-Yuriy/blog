@@ -20,7 +20,6 @@ class UserRegisterForm(FlaskForm):
         "Password", validators=[DataRequired(), EqualTo("confirm_password", message="Passwords must match.")]
     )
     confirm_password = PasswordField("Confirm password", validators=[DataRequired()])
-    # is_staff = BooleanField("Staff")
     submit = SubmitField("Register")
 
     def validate_email(self, field):
