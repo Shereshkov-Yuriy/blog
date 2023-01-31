@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Article #{{ article_id }}{% endblock title %}
+{% block title %}
+  Article #{{ article.id }}: {{ article.title }}
+{% endblock title %}
 
 {% block content %}
 <div>
-  <h1 class="display-4">Article #{{ article_id }}</h1>
-  <p>{{ article_data }}</p>
-  <p>{{ lipsum(1) }}</p>
+  <h1 class="display-4">{{ article.title|capitalize }}</h1>
+  <div>
+    <p>{{ article.body }}</p>
+  </div>
+  <div>Published {{ article.created_at }}</div>
+  <div>Author <a href="{{ url_for('user.profile', pk=article.author.user_id) }}">{{ article.author.user.username }} ({{ article.author.id }})</a></div>
 </div>
 {% endblock content %}
