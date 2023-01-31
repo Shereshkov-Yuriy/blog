@@ -16,6 +16,7 @@
           <a class="nav-link {% if request.endpoint == endpoint %}active{% endif %}" aria-current="page" 
             href="{{ url_for(endpoint) }}">{{ label }}</a>
         {% endfor %}
+
         {% if current_user.is_anonymous %}
           <a class="nav-link" aria-current="page" 
             href="{{ url_for('user.register') }}">Registration</a>
