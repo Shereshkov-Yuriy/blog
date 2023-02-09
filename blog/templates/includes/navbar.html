@@ -13,10 +13,15 @@
                                     ("author.author_list", "Authors"), 
                                     ("article.article_list", "Articles"),
                                     ("tag.tag_list", "Tags"),
+                                    ("api-docs.openapi_swagger_ui", "Docs"),
                                     ] %}
           <a class="nav-link {% if request.endpoint == endpoint %}active{% endif %}" aria-current="page" 
             href="{{ url_for(endpoint) }}">{{ label }}</a>
         {% endfor %}
+        {% if current_user.is_staff %}
+          <a class="nav-link" aria-current="page" 
+            href="{{ url_for("admin.index") }}">ADMINPANEL</a>
+        {% endif %}
         {% if current_user.is_anonymous %}
           <a class="nav-link" aria-current="page" 
             href="{{ url_for('user.register') }}">Registration</a>
