@@ -1,3 +1,6 @@
+from typing import Dict
+
+import requests
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user
 from werkzeug.exceptions import NotFound
@@ -54,9 +57,13 @@ def user_list():
 @login_required
 def profile(pk: int):
     user = User.query.filter_by(id=pk).one_or_none()
+    # call RPC method
+    count_articles: Dict = requests.get(
+        f"http://127.0.0.1:5000/api/authors/{pk}/event_get_articles_count/").json()
     if user is None:
         raise NotFound(f"User #{pk} doesn't exist!")
     return render_template(
         "users/profile.html",
         user=user,
+        count_articles=count_articles["count"],
     )

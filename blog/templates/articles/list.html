@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1 class="display-4">Articles</h1>
+<h1 class="display-4">Articles (count: {{ count_articles }}, received from an RPC call):</h1>
 
 <div class="row justify-content-md-start">
   {% for article in articles %}
