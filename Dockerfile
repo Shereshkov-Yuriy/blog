@@ -8,6 +8,10 @@ RUN pip install --no-cache -r requirements.txt
 
 COPY . .
 
-EXPOSE 5000
+RUN flask db upgrade
+RUN flask create-admin
+RUN flask create-tags
 
-CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+EXPOSE 8080
+
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "wsgi:app"]
