@@ -1,6 +1,6 @@
 FROM python:3.8.10-buster
 
-WORKDIR /app
+WORKDIR /blog
 
 COPY requirements.txt requirements.txt
 
@@ -8,9 +8,9 @@ RUN pip install --no-cache -r requirements.txt
 
 COPY . .
 
-RUN flask db upgrade
-RUN flask create-admin
-RUN flask create-tags
+# RUN flask db upgrade
+# RUN flask create-admin
+# RUN flask create-tags
 
 EXPOSE 8080
 

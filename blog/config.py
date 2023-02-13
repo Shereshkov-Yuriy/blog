@@ -11,7 +11,10 @@ DEBUG = ENV == EnvType.development
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+# при деплое переменная DATABASE_URL для меня не работает
+# SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+# поэтому добавил новую переменную в секреты
+SQLALCHEMY_DATABASE_URI = os.getenv("PG_DATABASE_URL")
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 API_URL = os.getenv("API_URL")
