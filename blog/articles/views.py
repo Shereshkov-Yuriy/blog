@@ -1,3 +1,4 @@
+
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
@@ -18,9 +19,13 @@ article = Blueprint(
 @article.route("/", methods=["GET"])
 def article_list():
     articles = Article.query.all()
+    # call RPC method
+    # count_articles: Dict = requests.get(
+    #     f"{API_URL}/api/articles/event_get_count/").json()
     return render_template(
         "articles/list.html",
         articles=articles,
+        # count_articles=count_articles["count"],
     )
 
 
@@ -51,10 +56,9 @@ def create_article():
     form.tags.choices = [(tag.id, tag.name) for tag in Tag.query.order_by("name")]
     if form.validate_on_submit():
         _article = Article(title=form.title.data.strip(), body=form.body.data)
-        db.session.add(_article)
 
         if current_user.author:
-            _article.author = current_user.author
+            _article.author_id = current_user.author.id
         else:
             author = Author(user_id=current_user.id)
             db.session.add(author)
@@ -69,6 +73,6 @@ def create_article():
         db.session.add(_article)
         db.session.commit()
 
-        return redirect(url_for(".article_details", pk=_article.id))
+        return redirect(url_for("article.article_details", pk=_article.id))
 
     return render_template("articles/create.html", form=form)
